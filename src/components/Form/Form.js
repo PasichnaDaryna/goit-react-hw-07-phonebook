@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { addContact } from "../../redux/contacts/contacts-operations";
 import { getContacts } from "../../redux/contacts/contacts-selectors";
+
 import { toast } from "react-toastify";
+import * as ContactOperations from "../../redux/contacts/contacts-operations";
 import "react-toastify/dist/ReactToastify.css";
 
 import "../Form/Form.css";
@@ -63,7 +64,7 @@ function Form() {
     } else if (checkValidNumber(number)) {
       toast.error("# Enter the correct phone number!");
     } else {
-      dispatch(addContact(name, number));
+      dispatch(ContactOperations.addContact(name, number));
     }
     resetInput();
   };

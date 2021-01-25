@@ -13,20 +13,20 @@ import {
 
 axios.defaults.baseURL = "http://localhost:4040";
 
-export const fetchContacts = () => async (dispatch) => {
+export const fetchContacts = () => (dispatch) => {
   dispatch(fetchContactRequest());
 
-  try {
-    const { data } = await axios.get("/contacts");
-
-    dispatch(fetchContactSuccess(data));
-  } catch (error) {
-    dispatch(fetchContactError(error));
-  }
+  axios
+    .get("/contacts")
+    .then(({ data }) => dispatch(fetchContactSuccess(data)))
+    .catch((error) => dispatch(fetchContactError(error)));
 };
 
-export const addContact = (name, number, id) => (dispatch) => {
-  const contact = { name, number, id };
+export const addContact = (name, number) => (dispatch) => {
+  const contact = {
+    name,
+    number,
+  };
   dispatch(addContactRequest);
 
   axios
@@ -35,12 +35,12 @@ export const addContact = (name, number, id) => (dispatch) => {
     .catch((error) => dispatch(addContactError(error)));
 };
 
-export const deleteContact = (contactId) => (dispatch) => {
+export const deleteContact = (id) => (dispatch) => {
   dispatch(deleteContactRequest());
 
   axios
-    .delete(`/contacs/${contactId}`)
-    .then(() => dispatch(deleteContactSuccess(contactId)))
+    .delete(`/contacs/${id}`)
+    .then(() => dispatch(deleteContactSuccess(id)))
     .catch((error) => dispatch(deleteContactError(error)));
 };
 
