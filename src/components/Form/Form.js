@@ -34,7 +34,8 @@ function Form() {
 
   const checkRepeatName = (name) => {
     return contacts.find(
-      (contact) => contact && contact.name.toLowerCase() === name.toLowerCase()
+      (contact) =>
+        contact.name && contact.name.toLowerCase() === name.toLowerCase()
     );
   };
 
